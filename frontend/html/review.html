@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv='content-type' content='text/html application/json' charset='utf-8'>
+    <meta name='generator' content='GitLab Pages'>
+    <title>Review a leecher</title>
+    <link rel='stylesheet' href='../css/form.css'>
+</head>
+
+<body>
+    <form id='reviewForm' action='http://127.0.1.1:8080/' method='POST'>
+        <h2>Write a review</h2>
+        <input type='text' id='theirNameField' name='theirNameField' placeholder='Their name'>
+        <br>
+        <small></small>
+        <br><br>
+
+        <input type='text' id='yourNameField' name='yourNameField' placeholder='kimi no na wa (optional)'>
+        <br>
+        <small></small>
+        <br><br>
+
+        <select id='typeDropdown' name='typeDropdown' onchange='displaySpecifics()'>
+            <option disabled selected value>-Service Type-</option>
+            <option value='Boss' disabled='true'>Boss</option>
+            <option value='Leech'>Leech</option>
+        </select>
+        <select id='roleDropdown' name='roleDropdown' onchange='displaySpecifics()'>
+            <option disabled selected value>-Service Role-</option>
+            <option value='Buyer'>Buyer</option>
+            <option value='Seller'>Seller</option>
+        </select>
+        <br>
+        <small></small>
+        <br><br>
+
+        <select id='specificsDropdown' onchange='displayDetails(this)'>
+        </select>
+        <br>
+        <small></small>
+        <br><br>
+
+        <div id='detailsDiv' style='display: none'>
+            <input type='number' id='promised' name='promised' placeholder=''>
+            <input type='number' id='actual' name='actual' placeholder=''>
+            <br>
+            <small></small>
+            <br><br>
+            <input type='number' id='price' name='price' placeholder='Price'>
+            <br>
+            <small></small>
+        </div>
+        <br><br>
+
+        <textarea id='description' name='description' placeholder='Remarks'></textarea>
+        <br>
+        <small></small>
+        <br><br>
+
+        <label for='msg'>Attach image showing promised result and price:</label>
+        <br>
+        <input type='file' id='img' name='promisedImg' accept='image/*'>
+        <br>
+        <small></small>
+        <br><br>
+
+        <label for='msg'>Attach image showing actual result:</label>
+        <br>
+        <input type='file' id='img' name='actualImg' accept='image/*'>
+        <br>
+        <small></small>
+        <br><br>
+
+        <button type='submit' id='submitButton'>Submit</button>
+    </form>
+    <script src='../js/generic.js'></script>
+    <script src='../js/review.js'></script>
+</body>
+
+</html>
