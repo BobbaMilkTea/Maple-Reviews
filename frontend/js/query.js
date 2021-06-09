@@ -1,15 +1,15 @@
 const playerNameField = document.querySelector('#playerNameField')
-const queryResultTable = document.querySelector('#queryResult')
+const profilesTable = document.querySelector('#profilesTable')
 
-function displayQueryResult(data) {
-    while(queryResultTable.rows.length > 1) {
-        queryResultTable.deleteRow(-1)
+function displayProfileList(data) {
+    while(profilesTable.rows.length > 1) {
+        profilesTable.deleteRow(-1)
     }
     for(const profile of data) {
-        var newRow = queryResultTable.insertRow(-1)
+        var newRow = profilesTable.insertRow(-1)
         
         //insert link
-        var profileButton = document.createElement("button")
+        var profileButton = document.createElement('button')
         profileButton.addEventListener('click', queryProfile)
         profileButton.textContent = profile['ign']
         newRow.insertCell().appendChild(profileButton)
@@ -36,7 +36,14 @@ async function queryProfileList(event) {
     const uri = 'http://127.0.1.1:8080/?playerNameField=' + playerNameField.value
     fetch(uri, { method: 'GET' })
     .then(response => response.json())
-    .then(data => {displayQueryResult(data['searchResult'])})
+    .then(data => {displayProfileList(data['searchResult'])})
+}
+
+function storeProfile(data) {
+    console.log(data)
+    sessionStorage.setItem('name', data['name'])
+    sessionStorage.setItem('score', data['score'])
+    sessionStorage.setItem('reviews', JSON.stringify(data['reviews']))
 }
 
 async function queryProfile(event) {
@@ -45,7 +52,11 @@ async function queryProfile(event) {
     console.log(uri)
     fetch(uri, { method: 'GET' })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+        console.log(data)
+        storeProfile(data)
+        window.location.replace('profile.html')
+    })
 }
 
 document.querySelector('#queryForm').addEventListener('submit', queryProfileList)

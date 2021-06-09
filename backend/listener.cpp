@@ -74,8 +74,8 @@ static std::vector<std::string> _stringTokenise(std::string text, char delim)
 
 void Listener::handleGet(http_request message)
 {
-    std::cout << "GET" << std::endl;
     std::string formDataStr = message.request_uri().to_string().substr(2);
+    std::cout << "GET " << formDataStr << std::endl;
     std::vector<std::string> pair = _stringTokenise(formDataStr, '=');
     if (pair[0].compare("playerNameField") == 0)
     {
@@ -132,6 +132,8 @@ static LeechReview _parseFormToReview(sqlite3* db, std::string formData)
             review.promised = atol(pair[1].c_str());
         else if (pair[0].compare("actual") == 0)
             review.actual = atol(pair[1].c_str());
+        else if (pair[0].compare("price") == 0)
+            review.price = atol(pair[1].c_str());
     }
     return review;
 }

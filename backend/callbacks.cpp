@@ -55,6 +55,10 @@ int _leechReviewCallback(void* dest, int numCol, char** values, char** colName)
         {
             newReview->actual = atol(values[c]);
         }
+        else if (std::string(colName[c]).compare("Price") == 0)
+        {
+            newReview->price = atol(values[c]);
+        }
     }
     profile->reviews.push_back(newReview);
 

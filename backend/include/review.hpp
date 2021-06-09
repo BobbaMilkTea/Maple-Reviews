@@ -16,6 +16,9 @@ public:
     int buyer = 0;
     ReviewType type;
     long timestamp;
+    long promised = 0;
+    long actual = 0;
+    long price = 0;
     std::string description;
 
     virtual ~Review();
@@ -25,9 +28,6 @@ public:
 class LeechReview : public Review
 {
 public:
-    long promised = 0;
-    long actual = 0;
-    long price = 0;
 
     virtual ~LeechReview();
     virtual int getScore();

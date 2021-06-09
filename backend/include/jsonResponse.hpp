@@ -32,6 +32,10 @@ namespace Response {
         auto response = json::value::object();
         response["serviceName"] = json::value::string("C++ operationSuccess");
         response["http_method"] = json::value::string("POST");
+        response["name"] = json::value::string(profile.ign);
+        response["score"] = json::value::number(profile.score);
+
+        std::vector<json::value> reviewsJson;
 
         auto profileJson = json::value::object();
         for(int r = 0; r < profile.reviews.size(); r++) {
@@ -40,8 +44,13 @@ namespace Response {
             reviewJson["type"] = json::value::number(review->type);
             reviewJson["description"] = json::value::string(review->description);
             reviewJson["timestamp"] = json::value::number(review->timestamp);
-            response["reviews"][r] = reviewJson;
+            reviewJson["promised"] = json::value::number(review->promised);
+            reviewJson["actual"] = json::value::number(review->actual);
+            reviewJson["price"] = json::value::number(review->price);
+            reviewsJson.push_back(reviewJson);
         }
+
+        response["reviews"] = json::value::array(reviewsJson);
 
         return response;
     }
